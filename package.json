@@ -9,6 +9,7 @@
     "start": "SET NODE_ENV=production & node ./server.js"
   },
   "dependencies": {
+    "@now/next": "^2.6.7",
     "express": "^4.17.1",
     "next": "9.3.4",
     "next-redux-wrapper": "^5.0.0",
