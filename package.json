@@ -4,9 +4,9 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./src/server.js",
-    "build": "next build ./src ",
-    "start": "SET NODE_ENV=production & node ./src/server.js"
+    "dev": "nodemon ./server.js",
+    "build": "next build",
+    "start": "SET NODE_ENV=production & node ./server.js"
   },
   "dependencies": {
     "express": "^4.17.1",

@@ -5,15 +5,14 @@ const next = require('next')
 
 const dev = process.env.NODE_ENV !== 'production '
 const opts = {
-  dev,
-  dir: './src',
+  dev
 };
 const nextApp = next(opts)
 const nextHandler = nextApp.getRequestHandler()
 
 let port = 3000
 
-console.log(dev)
+console.log(`> is dev: ${dev}`)
 
 io.on('connect', socket => {
 })

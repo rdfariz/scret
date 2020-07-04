@@ -1,10 +1,10 @@
 import React from 'react'
 import App from 'next/app'
 import Head from 'next/head'
-import initStore from '../store/index'
+import initStore from '../src/store/index'
 import withRedux from 'next-redux-wrapper'
 import { Provider } from 'react-redux'
-import '../assets/app.css'
+import '../src/assets/app.css'
 
 class _App extends App {
   render() {
