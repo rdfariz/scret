@@ -20,7 +20,7 @@ class Home extends React.Component {
     const { params } = this.props
     const { id } = params
     if (id) {
-      this.socket = await io()
+      this.socket = await io('https://scret-server.vercel.app/', {secure: true,    rejectUnauthorized: false})
       this._join(id)
     } else {
       // Redirect
