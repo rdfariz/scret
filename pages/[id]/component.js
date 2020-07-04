@@ -1,4 +1,3 @@
-import React from 'react'
 import io from 'socket.io-client'
 import Editor from 'react-simple-code-editor'
 import { highlight, languages } from 'prismjs/components/prism-core';
@@ -20,7 +19,7 @@ class Home extends React.Component {
     const { params } = this.props
     const { id } = params
     if (id) {
-      this.socket = await io('https://scret-server.vercel.app/', {secure: true,    rejectUnauthorized: false})
+      this.socket = await io()
       this._join(id)
     } else {
       // Redirect
