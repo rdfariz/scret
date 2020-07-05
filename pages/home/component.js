@@ -64,9 +64,10 @@ class Home extends React.Component {
           <p>Share your code without saving it</p>
           <hr></hr>
           <div className="container_editor_area">
-            <span>Room ID: </span>
-            <input type="text" placeholder="ex: wXchqwnE7" value={roomId} onKeyDown={this._handleKeyDown} onChange={(e) => this.setState({ roomId: e.target.value })}></input>
-            <button onClick={this._redirect}>Start / Join</button>
+            <span>Input your Room ID</span>
+            <br></br>
+            <input style={{marginTop: '12px'}} type="text" placeholder="ex: wXchqwnE7" value={roomId} onKeyDown={this._handleKeyDown} onChange={(e) => this.setState({ roomId: e.target.value })}></input>
+            <button onClick={this._redirect}>Join</button>
           </div>
         </div>
         <ToastContainer autoClose={1750} pauseOnHover={false} pauseOnFocusLoss={false} />
