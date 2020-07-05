@@ -4,6 +4,7 @@ import Head from 'next/head'
 import initStore from '../src/store/index'
 import withRedux from 'next-redux-wrapper'
 import { Provider } from 'react-redux'
+import 'react-toastify/dist/ReactToastify.css';
 import '../src/assets/app.css'
 
 class _App extends App {

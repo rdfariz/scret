@@ -70,6 +70,21 @@ body {
   background: linear-gradient(45deg, #E42B66, #E2433F);
 }
 
+.message {
+  margin-top: 16px;
+  background-color: #F6F6F6;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.share_btn {
+  margin-top: 8px;
+}
+
+.title {
+  margin-bottom: 0px !important;
+}
+
 /* Syntax highlighting */
 .token.comment,
 .token.prolog,

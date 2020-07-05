@@ -3,27 +3,53 @@ import Editor from 'react-simple-code-editor'
 import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
+import * as clipboardy from 'clipboardy'
+import { ToastContainer, toast } from 'react-toastify';
+import validator from 'validator';
+import { maxLengthParams, BASE_URL, SERVER_URL } from '../../src/constants/index'
 
-class Home extends React.Component {
-
-  state = {
-    code: '',
-    userLength: 0
+class Component extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      code: '',
+      userLength: 0,
+      message: '',
+      url: ''
+    }
+    this._init = this._init.bind(this);
+    this._join = this._join.bind(this);
+    this._listener = this._listener.bind(this);
+    this.onShareLink = this.onShareLink.bind(this);
+    this.onCopyCode = this.onCopyCode.bind(this);
+    this.onChangeValue = this.onChangeValue.bind(this);
   }
 
   componentDidMount() {
     this._init()
   }
 
-  async _init() {
-    const { params } = this.props
-    const { id } = params
-    if (id) {
-      this.socket = await io('https://scret-server.herokuapp.com/')
-      this._join(id)
+  static getInitialProps ({ res, query: { id } }) {
+    if (id !== 'favicon.ico') {
+      const isLength = validator.isLength(id, { min: 0, max: maxLengthParams })
+      if (!id || !isLength) {
+        res.writeHead(301, { Location: '/' });
+        res.end();
+        return { id }
+      } else {
+        return { id }
+      }
     } else {
-      // Redirect
+      return { id }
     }
+  }
+
+  async _init() {
+    const { id } = this.props
+    this.socket = await io(SERVER_URL)
+    this._join(id)
+    const url = `${BASE_URL}${id}`
+    this.setState({ url })
   }
 
   _join(roomId) {
@@ -44,6 +70,17 @@ class Home extends React.Component {
     })
   }
 
+  onShareLink() {
+    const { url } = this.state
+    clipboardy.write(url)
+    toast.info("Copy Link Successfully");
+  }
+  onCopyCode() {
+    const { code } = this.state
+    clipboardy.write(code)
+    toast.success("Copy Code Successfully");
+  }
+
   onChangeValue(code) {
     this.setState({ code })
     this.socket.emit('update_code', { code })
@@ -52,14 +89,21 @@ class Home extends React.Component {
   render() {
     const { params } = this.props
     const { id } = params
-    const { userLength } = this.state;
+    const { url, userLength } = this.state;
     return (
       <main className="container">
         <div className="container__content">
-          <h1 className="title">
-            Room: { id }
-          </h1>
-          <p>We are { userLength } users in the room.</p>
+          <h2 className="title">
+            Room ID: { id }
+          </h2>
+          <p><b>{ userLength }</b> users in the room.</p>
+          {url && (
+            <div className="message" onClick={this.onShareLink}>
+              {url}
+            </div>
+          )}
+          <br></br>
+          <button className="share_btn" onClick={this.onCopyCode}>Copy All Code</button>
           <div className="container_editor_area">
             <Editor
               placeholder="Type some code…"
@@ -71,10 +115,11 @@ class Home extends React.Component {
             />
           </div>
         </div>
+        <ToastContainer autoClose={1750} pauseOnHover={false} />
       </main>
     )
   }
 }
 
 
-export default Home
+export default Component
