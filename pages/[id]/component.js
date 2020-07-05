@@ -7,6 +7,7 @@ import * as clipboardy from 'clipboardy'
 import { ToastContainer, toast } from 'react-toastify';
 import validator from 'validator';
 import { maxLengthParams, BASE_URL, SERVER_URL } from '../../src/constants/index'
+import Help from '../../src/components/help/index'
 
 class Component extends React.Component {
   constructor(props) {
@@ -15,7 +16,8 @@ class Component extends React.Component {
       code: '',
       userLength: 0,
       message: '',
-      url: ''
+      url: '',
+      isShowHelp: false
     }
     this._init = this._init.bind(this);
     this._join = this._join.bind(this);
@@ -23,6 +25,7 @@ class Component extends React.Component {
     this.onShareLink = this.onShareLink.bind(this);
     this.onCopyCode = this.onCopyCode.bind(this);
     this.onChangeValue = this.onChangeValue.bind(this);
+    this._toggleHowWork = this._toggleHowWork.bind(this);
   }
 
   componentDidMount() {
@@ -86,13 +89,27 @@ class Component extends React.Component {
     this.socket.emit('update_code', { code })
   }
 
+  _toggleHowWork(e) {
+    e.preventDefault();
+    this.setState({ isShowHelp: !this.state.isShowHelp })
+  }
+
   render() {
     const { params } = this.props
     const { id } = params
-    const { url, userLength } = this.state;
+    const { url, userLength, isShowHelp } = this.state;
     return (
       <main className="container">
         <div className="container__content">
+          <a style={{margin: '8px'}} href="/">Back</a>
+          <a style={{margin: '8px'}} href="/" onClick={this._toggleHowWork}>How it work?</a>
+          <hr></hr>
+          {isShowHelp && (
+            <div>
+              <Help />
+              <hr></hr>
+            </div>
+          )}
           <h2 className="title">
             Room ID: { id }
           </h2>
