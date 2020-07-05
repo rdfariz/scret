@@ -19,7 +19,7 @@ class Home extends React.Component {
     const { params } = this.props
     const { id } = params
     if (id) {
-      this.socket = await io()
+      this.socket = await io('https://scret-server.herokuapp.com/')
       this._join(id)
     } else {
       // Redirect

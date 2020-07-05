@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node server.js",
+    "dev": "next dev",
     "build": "next build",
-    "start": "cross-env NODE_ENV=production node server.js"
+    "start": "next start",
+    "now-start": "next start"
   },
   "dependencies": {
     "cross-env": "^7.0.2",
