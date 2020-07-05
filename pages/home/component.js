@@ -69,7 +69,7 @@ class Home extends React.Component {
             <button onClick={this._redirect}>Start / Join</button>
           </div>
         </div>
-        <ToastContainer autoClose={1750} pauseOnHover={false} />
+        <ToastContainer autoClose={1750} pauseOnHover={false} pauseOnFocusLoss={false} />
       </main>
     )
   }

@@ -115,7 +115,7 @@ class Component extends React.Component {
             />
           </div>
         </div>
-        <ToastContainer autoClose={1750} pauseOnHover={false} />
+        <ToastContainer autoClose={1750} pauseOnHover={false} pauseOnFocusLoss={false} />
       </main>
     )
   }
